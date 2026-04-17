@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1e3a8a; /* Dark Navy Blue */
+  --color-secondary: #3b82f6; /* Bright Blue */
+  --color-accent: #ef4444; /* Red accent */
+  --color-surface: #f8fafc; /* Light background */
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Lexend", "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-surface text-slate-900 overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-semibold transition-all duration-200 bg-secondary text-white hover:bg-primary hover:shadow-lg active:scale-95;
+  }
+  
+  .btn-accent {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-semibold transition-all duration-200 bg-accent text-white hover:bg-red-600 hover:shadow-lg active:scale-95;
+  }
+  
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-semibold transition-all duration-200 border-2 border-primary text-primary hover:bg-primary hover:text-white active:scale-95;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400;
+}
