@@ -57,7 +57,7 @@ export const Header = () => {
         </Link>
 
         {/* Desktop Links */}
-        <nav className="hidden lg:flex items-center space-x-10">
+        <nav className="hidden lg:flex items-center space-x-14">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}

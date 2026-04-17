@@ -27,18 +27,18 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-7"
+            className="lg:col-span-7 pb-10"
           >
-            <div className="inline-flex items-center bg-secondary/20 text-secondary border border-secondary/30 px-6 py-2.5 rounded-full text-[10px] font-black tracking-[0.3em] uppercase mb-10 shadow-2xl">
+            <div className="inline-flex items-center bg-secondary/20 text-secondary border border-secondary/30 px-6 py-2.5 rounded-full text-[10px] font-black tracking-[0.3em] uppercase mb-12 shadow-2xl">
               <Clock size={14} className="mr-2" /> Reliable 24/7 Support in Hitchcock
             </div>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-10 tracking-tighter">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-12 tracking-tighter">
               Professional Plumbing <span className="text-secondary italic">Perfected.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 mb-14 leading-relaxed font-medium max-w-2xl">
+            <p className="text-xl md:text-2xl text-slate-300 mb-20 leading-relaxed font-medium max-w-2xl">
               Gauff Coast Plumbing delivers fast, affordable, and expert solutions for homes and businesses. We combine modern technology with local reliability.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-8">
               <a href={`tel:${PHONE_NUMBER}`} className="btn-accent px-10 py-6 text-xl shadow-[0_20px_50px_rgba(230,126,34,0.3)]">
                 <Phone size={24} className="mr-3" /> Call {DISPLAY_PHONE}
               </a>
@@ -80,19 +80,19 @@ const HomePage = () => {
       </section>
 
       {/* --- Trust Grid --- */}
-      <section className="bg-surface relative z-20 pb-20 -mt-20">
+      <section className="bg-surface relative z-20 pb-40 -mt-10">
         <div className="container overflow-visible">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <TrustBadge icon={Clock} title="24/7 Response" text="Emergency help anytime." />
-            <TrustBadge icon={ShieldCheck} title="Master Licensed" text="Verified plumbing experts." />
-            <TrustBadge icon={Activity} title="Rapid Dispatch" text="On-site in 60 minutes." />
-            <TrustBadge icon={BadgeDollarSign} title="Upfront Pricing" text="No hidden surcharges." />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <TrustBadge icon={Clock} title="24/7 Emergency Service" text="Ready anytime you need us." />
+            <TrustBadge icon={ShieldCheck} title="Licensed & Experienced" text="Quality you can count on." />
+            <TrustBadge icon={Activity} title="Fast Response Time" text="We arrive when we say we will." />
+            <TrustBadge icon={BadgeDollarSign} title="Affordable Pricing" text="No hidden fees, ever." />
           </div>
         </div>
       </section>
 
       {/* --- Why Choose Us --- */}
-      <section className="section-spacing bg-white">
+      <section id="why-choose-us" className="section-spacing bg-white pt-24">
         <div className="container">
           <SectionHeading 
             centered 
@@ -146,7 +146,7 @@ const HomePage = () => {
       </section>
 
       {/* --- Testimonials --- */}
-      <section className="section-spacing bg-primary overflow-hidden relative">
+      <section id="testimonials" className="section-spacing bg-primary overflow-hidden relative mt-32">
         <div className="absolute inset-0 opacity-10 bg-[url('https://picsum.photos/seed/water-abstract/1920/1080?grayscale')] bg-cover"></div>
         <div className="container relative z-10">
           <SectionHeading 
@@ -232,14 +232,14 @@ const HomePage = () => {
       </section>
 
       {/* --- Final CTA --- */}
-      <section className="py-32 bg-secondary relative overflow-hidden">
+      <section id="cta-section" className="py-56 bg-secondary relative overflow-hidden mt-32">
         <div className="absolute inset-0 opacity-10 flex flex-wrap gap-20 items-center justify-center pointer-events-none">
            {[...Array(6)].map((_, i) => <Droplets key={i} size={300} className="text-white rotate-12" />)}
         </div>
         <div className="container relative z-10 text-center">
           <h2 className="text-5xl md:text-8xl font-black text-white mb-10 tracking-tighter">
-            Plumbing Issue? <br />
-            <span className="text-primary italic">Don't Panic, Call Gauff.</span>
+            Need a Plumber <br />
+            <span className="text-primary italic">Right Now? Don't Panic.</span>
           </h2>
           <p className="text-white/90 text-2xl mb-16 max-w-3xl mx-auto font-medium">
             Join the hundreds of local families who trust Gauff Coast Plumbing for all their household and commercial needs.
