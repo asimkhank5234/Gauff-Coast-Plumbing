@@ -8,69 +8,80 @@ import { Link } from 'react-router-dom';
 
 const TestimonialsPage = () => {
   return (
-    <PageLayout title="Customer Reviews">
-      {/* Hero Header */}
-      <section className="bg-primary pt-24 pb-32 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
-        <div className="container px-4 text-center relative z-10">
-          <SectionHeading 
-            light
-            centered
-            title="What Our Customers Say About Gauff Coast Plumbing" 
-            subtitle="We are proud to provide reliable plumbing services and 24/7 emergency support to homeowners and businesses throughout Hitchcock, TX and surrounding areas."
-          />
+    <PageLayout>
+      {/* --- Hero Section --- */}
+      <section className="bg-primary pt-48 pb-32 text-white relative overflow-hidden text-center">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/seed/customer-service/1920/1080?grayscale')] bg-cover"></div>
+        <div className="container relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-4xl mx-auto"
+          >
+            <h1 className="text-6xl md:text-8xl font-black mb-10 tracking-tighter">Voices of <br/><span className="text-secondary italic">Excellence</span></h1>
+            <p className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed">
+              We've spent a decade building Hitchcock's most trusted plumbing firm, one household at a time. Here is what your neighbors think.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Trust Banner */}
-      <section className="container px-4 -mt-16 relative z-20">
-        <div className="bg-white rounded-2xl shadow-xl p-8 grid md:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center text-center">
-                <div className="text-secondary mb-3"><Clock size={32} /></div>
-                <h4 className="font-black text-primary text-sm uppercase tracking-wider">24/7 Emergency</h4>
-            </div>
-            <div className="flex flex-col items-center text-center">
-                <div className="text-secondary mb-3"><ShieldCheck size={32} /></div>
-                <h4 className="font-black text-primary text-sm uppercase tracking-wider">Fast Response</h4>
-            </div>
-            <div className="flex flex-col items-center text-center">
-                <div className="text-secondary mb-3"><Heart size={32} /></div>
-                <h4 className="font-black text-primary text-sm uppercase tracking-wider">100% Satisfaction</h4>
-            </div>
-            <div className="flex flex-col items-center text-center">
-                <div className="text-secondary mb-3"><Star size={32} /></div>
-                <h4 className="font-black text-primary text-sm uppercase tracking-wider">Locally Trusted</h4>
-            </div>
-        </div>
-      </section>
-
-      {/* Testimonials Grid */}
-      <section className="py-24 bg-surface px-4">
+      {/* --- Stats Banner --- */}
+      <section className="section-spacing bg-white">
         <div className="container">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+             {[
+               { icon: Star, count: "500+", label: "5-Star Reviews" },
+               { icon: Clock, count: "24/7", label: "Emergency Support" },
+               { icon: ShieldCheck, count: "100%", label: "Satisfaction rate" },
+               { icon: Heart, count: "10K+", label: "Service Calls" }
+             ].map((stat) => (
+               <div key={stat.label} className="text-center group">
+                  <div className="bg-surface p-6 rounded-3xl mb-4 transition-transform group-hover:scale-110">
+                    <stat.icon className="mx-auto text-secondary" size={32} />
+                  </div>
+                  <h4 className="text-3xl font-black text-primary">{stat.count}</h4>
+                  <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">{stat.label}</p>
+               </div>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- Testimonials Grid --- */}
+      <section className="section-spacing bg-surface border-y border-slate-100">
+        <div className="container">
+          <SectionHeading 
+            centered
+            title="Real Stories, Real Results" 
+            subtitle="Honest feedback from residential and commercial clients across Hitchcock and beyond."
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16">
             {TESTIMONIALS.map((item, index) => (
               <motion.div 
                 key={item.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-lg transition-shadow"
+                className="bg-white p-12 rounded-[3.5rem] card-shadow border border-slate-50 flex flex-col h-full group"
               >
-                <div className="mb-6">
+                <div className="mb-8 flex space-x-1">
                   <RatingStars count={item.rating} />
                 </div>
-                <div className="mb-8 flex-grow">
-                   <p className="text-slate-700 font-medium italic leading-relaxed">"{item.review}"</p>
+                <div className="mb-12 flex-grow">
+                   <p className="text-slate-500 font-medium text-lg leading-relaxed italic">"{item.review}"</p>
                 </div>
-                <div className="flex items-center pt-6 border-t border-slate-50">
-                  <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center font-black text-secondary mr-4 uppercase">
+                <div className="flex items-center pt-8 border-t border-slate-50">
+                  <div className="w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center font-black text-2xl mr-6 rotate-3 group-hover:rotate-0 transition-transform">
                     {item.name[0]}
                   </div>
                   <div>
-                    <h4 className="font-bold text-primary">{item.name}</h4>
-                    <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">{item.location}</p>
-                    <p className="text-[10px] text-secondary font-black mt-0.5 uppercase tracking-tighter">Service: {item.service}</p>
+                    <h4 className="font-black text-primary text-xl leading-none mb-2">{item.name}</h4>
+                    <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">{item.location}</p>
+                    <div className="mt-2 inline-block bg-secondary/10 px-3 py-1 rounded-full text-[9px] text-secondary font-black uppercase tracking-widest">
+                       {item.service}
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -79,22 +90,23 @@ const TestimonialsPage = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-24 bg-white border-t border-slate-100 px-4">
-        <div className="container text-center max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-black text-primary mb-6">
-            Need Reliable Plumbing Service?
-          </h2>
-          <p className="text-slate-600 text-xl mb-12 font-medium">
-             Call Gauff Coast Plumbing today for fast, affordable, and professional plumbing services. Our experts are ready to help you 24/7.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a href={`tel:${PHONE_NUMBER}`} className="btn-accent text-xl px-12 py-5 shadow-xl">
-              <Phone size={24} className="mr-3" /> Call {DISPLAY_PHONE}
-            </a>
-            <Link to="/contact" className="btn-primary text-xl px-12 py-5 shadow-xl">
-              Request a Free Estimate
-            </Link>
+      {/* --- Call to Action --- */}
+      <section className="section-spacing bg-white">
+        <div className="container bg-primary p-16 lg:p-32 rounded-[4rem] text-center text-white relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div className="relative z-10">
+            <h2 className="text-4xl md:text-6xl font-black mb-10 tracking-tighter">Experience it yourself.</h2>
+            <p className="text-2xl text-slate-300 mb-16 max-w-2xl mx-auto font-medium">
+               Join the hundreds of Hitchcock residents who never have to worry about their pipes.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+              <a href={`tel:${PHONE_NUMBER}`} className="btn-accent px-12 py-7 text-2xl !bg-white !text-primary hover:!bg-slate-100 border-none shadow-2xl">
+                Call {DISPLAY_PHONE}
+              </a>
+              <Link to="/contact" className="bg-secondary text-white hover:bg-[#c0392b] px-12 py-7 rounded-2xl font-black text-2xl transition-all shadow-2xl">
+                Request Quote
+              </Link>
+            </div>
           </div>
         </div>
       </section>

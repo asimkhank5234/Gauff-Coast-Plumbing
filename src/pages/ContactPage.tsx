@@ -47,179 +47,113 @@ const ContactPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    // In a real app, logic to send email would go here
   };
 
   return (
-    <PageLayout title="Contact Us">
-      {/* Contact Hero */}
-      <section className="bg-primary text-white pt-24 pb-32 relative overflow-hidden text-center px-4">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+    <PageLayout>
+      {/* --- Contact Hero --- */}
+      <section className="bg-primary pt-48 pb-32 text-white relative overflow-hidden text-center lg:text-left">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/seed/contact-plumbing/1920/1080?grayscale')] bg-cover"></div>
         <div className="container relative z-10">
-          <SectionHeading 
-            light
-            centered
-            title="Get In Touch With Gauff Coast Plumbing" 
-            subtitle="Request a free estimate or contact us for 24/7 emergency service in Hitchcock and surrounding areas."
-          />
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-4xl"
+          >
+            <h1 className="text-6xl md:text-8xl font-black mb-10 tracking-tighter">Let's Fix Your <br/><span className="text-secondary italic">Plumbing Pipes</span></h1>
+            <p className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed">
+              We're available 24/7 for Hitchcock emergencies and standard repairs. Reach out today for a free, transparent estimate.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Main Contact Section */}
-      <section className="py-24 bg-surface px-4">
-        <div className="container -mt-40 relative z-20">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Contact Info Cards */}
-            <div className="space-y-6 lg:col-span-1">
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
-                <h3 className="text-2xl font-black text-primary border-b border-slate-50 pb-4">Our Information</h3>
-                
-                <div className="flex items-start space-x-4">
-                   <div className="bg-secondary/10 p-3 rounded-xl text-secondary"><Phone size={24} /></div>
-                   <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Phone Number</p>
-                      <a href={`tel:${PHONE_NUMBER}`} className="text-xl font-bold text-primary hover:text-secondary transition-colors underline decoration-secondary/30">{DISPLAY_PHONE}</a>
-                   </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                   <div className="bg-secondary/10 p-3 rounded-xl text-secondary"><Mail size={24} /></div>
-                   <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Email Address</p>
-                      <a href={`mailto:${EMAIL}`} className="text-lg font-bold text-primary hover:text-secondary transition-colors truncate block max-w-[200px] sm:max-w-none">{EMAIL}</a>
-                   </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                   <div className="bg-secondary/10 p-3 rounded-xl text-secondary"><MapPin size={24} /></div>
-                   <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Physical Address</p>
-                      <p className="text-lg font-bold text-primary">{ADDRESS}</p>
-                   </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                   <div className="bg-secondary/10 p-3 rounded-xl text-secondary"><Clock size={24} /></div>
-                   <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Business Hours</p>
-                      <p className="text-lg font-bold text-primary">Open 24 Hours / 7 Days</p>
-                   </div>
-                </div>
-              </div>
-              
-              <div className="bg-primary p-8 rounded-2xl shadow-xl text-white">
-                <h4 className="text-xl font-bold mb-4">Emergency Service?</h4>
-                <p className="text-slate-300 text-sm mb-6 leading-relaxed">If you have a burst pipe or immediate plumbing emergency, please call us directly for the fastest response.</p>
-                <a href={`tel:${PHONE_NUMBER}`} className="btn-accent w-full justify-center text-lg">{DISPLAY_PHONE}</a>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-white p-8 lg:p-12 rounded-2xl shadow-xl border border-slate-100">
-                {submitted ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-20"
-                  >
-                    <div className="inline-flex items-center justify-center w-24 h-24 bg-green-100 text-green-600 rounded-full mb-8">
-                       <CheckCircle2 size={48} />
+      {/* --- Contact Info & Form --- */}
+      <section className="section-spacing bg-white">
+        <div className="container grid lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-5 space-y-12">
+            <SectionHeading 
+              title="Get in touch" 
+              subtitle="Our team is standing by to assist with any questions or service requests."
+            />
+            
+            <div className="space-y-8">
+               {[
+                 { icon: Phone, label: "Call Us 24/7", value: DISPLAY_PHONE, href: `tel:${PHONE_NUMBER}` },
+                 { icon: Mail, label: "Email Support", value: EMAIL, href: `mailto:${EMAIL}` },
+                 { icon: MapPin, label: "Our Base", value: ADDRESS, href: "#" },
+                 { icon: Clock, label: "Operating Hours", value: "Open 24/7/365", href: "#" }
+               ].map((item) => (
+                 <a 
+                   key={item.label} 
+                   href={item.href}
+                   className="flex items-center p-8 bg-surface rounded-[2.5rem] border border-slate-50 card-shadow transition-transform hover:translate-x-4"
+                 >
+                    <div className="bg-white p-4 rounded-xl text-secondary shadow-lg mr-8">
+                       <item.icon size={28} />
                     </div>
-                    <h3 className="text-3xl font-black text-primary mb-4">Thank You!</h3>
-                    <p className="text-slate-600 text-lg mb-8 max-w-md mx-auto">We've received your request and one of our experts will contact you shortly to provide your free estimate.</p>
-                    <button 
-                      onClick={() => setSubmitted(false)}
-                      className="text-secondary font-bold hover:underline"
-                    >
-                      Send another message
-                    </button>
-                  </motion.div>
-                ) : (
-                  <>
-                    <h3 className="text-3xl font-black text-primary mb-2">Request a Free Estimate</h3>
-                    <p className="text-slate-500 mb-10">Fill out the form below and we'll get back to you as soon as possible.</p>
-                    
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Full Name</label>
-                          <input 
-                            required 
-                            type="text" 
-                            className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all"
-                            placeholder="John Doe"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Phone Number</label>
-                          <input 
-                            required 
-                            type="tel" 
-                            className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all"
-                            placeholder="(409) 000-0000"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                         <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Email Address</label>
-                          <input 
-                            required 
-                            type="email" 
-                            className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all"
-                            placeholder="john@example.com"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Service Needed</label>
-                          <select className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all appearance-none">
-                            <option>Drain Cleaning</option>
-                            <option>Leak Detection</option>
-                            <option>Water Heater Service</option>
-                            <option>Emergency Repair</option>
-                            <option>Pipe Repair / Repiping</option>
-                            <option>Commercial Plumbing</option>
-                            <option>Other Service</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Your Message</label>
-                        <textarea 
-                          rows={4} 
-                          className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all"
-                          placeholder="How can we help you today?"
-                        ></textarea>
-                      </div>
-
-                      <button type="submit" className="btn-primary w-full py-5 text-xl">
-                        <Send size={20} className="mr-3" /> Send My Request
-                      </button>
-                      
-                      <p className="text-center text-xs text-slate-400 font-medium italic">
-                        By submitting this form, you agree to being contacted by Gauff Coast Plumbing regarding your service request.
-                      </p>
-                    </form>
-                  </>
-                )}
-              </div>
+                    <div>
+                       <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">{item.label}</p>
+                       <p className="text-xl font-black text-primary lowercase">{item.value}</p>
+                    </div>
+                 </a>
+               ))}
             </div>
+          </div>
+
+          <div className="lg:col-span-7">
+             <div className="bg-primary p-12 lg:p-20 rounded-[4rem] shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                
+                {submitted ? (
+                   <motion.div 
+                     initial={{ opacity: 0, scale: 0.9 }}
+                     animate={{ opacity: 1, scale: 1 }}
+                     className="text-center py-20 text-white"
+                   >
+                     <div className="bg-secondary p-8 rounded-full inline-block mb-10 shadow-2xl">
+                        <CheckCircle2 size={64} />
+                     </div>
+                     <h3 className="text-4xl font-black mb-6 italic tracking-tighter">Message Received.</h3>
+                     <p className="text-xl text-slate-300 font-medium mb-12">One of our master plumbers will contact you within 15 minutes.</p>
+                     <button onClick={() => setSubmitted(false)} className="text-secondary font-black underline decoration-2 underline-offset-8">Send another message</button>
+                   </motion.div>
+                ) : (
+                   <div className="relative z-10">
+                      <h3 className="text-3xl font-black text-white mb-10 italic">Request an Estimate</h3>
+                      <form onSubmit={handleSubmit} className="space-y-8">
+                        <div className="grid md:grid-cols-2 gap-8">
+                           <input required type="text" placeholder="Full Name" className="w-full bg-white/5 border border-white/20 rounded-2xl px-8 py-5 text-white placeholder:text-white/40 focus:outline-none focus:border-secondary transition-colors" />
+                           <input required type="tel" placeholder="Phone Number" className="w-full bg-white/5 border border-white/20 rounded-2xl px-8 py-5 text-white placeholder:text-white/40 focus:outline-none focus:border-secondary transition-colors" />
+                        </div>
+                        <input required type="email" placeholder="Email Address" className="w-full bg-white/5 border border-white/20 rounded-2xl px-8 py-5 text-white placeholder:text-white/40 focus:outline-none focus:border-secondary transition-colors" />
+                        <select className="w-full bg-white/5 border border-white/20 rounded-2xl px-8 py-5 text-white placeholder:text-white/40 focus:outline-none focus:border-secondary transition-colors appearance-none">
+                           <option className="bg-primary">Surface Drainage</option>
+                           <option className="bg-primary">Leak Detection</option>
+                           <option className="bg-primary">Emergency Repair</option>
+                           <option className="bg-primary">Water Heaters</option>
+                        </select>
+                        <textarea rows={5} placeholder="Tell us about the project..." className="w-full bg-white/5 border border-white/20 rounded-2xl px-8 py-5 text-white placeholder:text-white/40 focus:outline-none focus:border-secondary transition-colors" />
+                        <button type="submit" className="w-full bg-secondary text-white py-6 rounded-2xl font-black text-2xl hover:bg-[#c0392b] transition-all shadow-2xl">
+                           Send Request
+                        </button>
+                      </form>
+                   </div>
+                )}
+             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24 bg-white px-4">
+      {/* --- FAQ Section --- */}
+      <section className="section-spacing bg-surface border-y border-slate-100">
         <div className="container max-w-4xl">
           <SectionHeading 
             centered
-            title="Frequently Asked Questions" 
-            subtitle="Common questions about our services and area coverage."
+            title="Common Questions" 
+            subtitle="Everything you need to know about our Hitchcock repair services."
           />
-          <div className="bg-white border rounded-2xl shadow-sm px-8">
+          <div className="bg-white rounded-[3rem] p-8 lg:p-16 card-shadow border border-slate-50">
             {FAQS.map((faq, i) => (
               <FAQItem key={i} faq={faq} />
             ))}
@@ -227,26 +161,18 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* Map Embed Section */}
-      <section className="h-[450px] w-full relative grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden">
-         {/* Placeholder for Google Map Embed */}
-         <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
-            <div className="text-center">
-               <MapPin size={64} className="text-slate-400 mx-auto mb-4" />
-               <p className="text-slate-500 font-bold uppercase tracking-widest">{ADDRESS}</p>
-            </div>
-         </div>
-         {/* Real embed would look like this: 
+      {/* --- Map Section --- */}
+      <section className="h-[600px] w-full relative grayscale hover:grayscale-0 transition-all duration-[2s]">
          <iframe 
             width="100%" 
             height="100%" 
-            frameborder="0" 
+            frameBorder="0" 
             scrolling="no" 
-            marginheight="0" 
-            marginwidth="0" 
-            src="https://maps.google.com/maps?q=438%20Pompano,%20Hitchcock,%20TX%2077563&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            marginHeight={0} 
+            marginWidth={0} 
+            src="https://maps.google.com/maps?q=438%20Pompano,%20Hitchcock,%20TX%2077563&t=&z=14&ie=UTF8&iwloc=&output=embed"
+            className="border-none"
          ></iframe> 
-         */}
       </section>
     </PageLayout>
   );

@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, Clock, Menu, X, ChevronRight, Star, Droplets, Wren
 import { COMPANY_NAME, PHONE_NUMBER, DISPLAY_PHONE, EMAIL, ADDRESS, SERVICE_AREAS } from '../constants';
 import { motion, AnimatePresence } from 'motion/react';
 import SchemaMarkup from './SchemaMarkup';
+import { Logo } from './UI';
 
 // --- Header ---
 export const Header = () => {
@@ -21,67 +22,65 @@ export const Header = () => {
 
   useEffect(() => {
     setIsMenuOpen(false);
+    window.scrollTo(0, 0);
   }, [location]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Testimonials', path: '/testimonials' },
+    { name: 'Reviews', path: '/testimonials' },
     { name: 'Contact', path: '/contact' },
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-white/95 backdrop-blur-md py-4'}`}>
-      {/* Top Bar (Desktop) */}
-      <div className="hidden lg:block bg-primary text-white py-1">
-        <div className="container flex justify-between items-center text-xs font-medium">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center"><Clock size={14} className="mr-1" /> Available 24/7</span>
-            <span className="flex items-center"><MapPin size={14} className="mr-1" /> {ADDRESS}</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <a href={`mailto:${EMAIL}`} className="flex items-center hover:text-secondary"><Mail size={14} className="mr-1" /> {EMAIL}</a>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-lg shadow-xl py-3 border-b border-secondary/10' : 'bg-transparent py-6'}`}>
+      {/* Top Bar (Desktop) - only visible when not scrolled or on certain themes */}
+      {!isScrolled && (
+        <div className="hidden lg:block border-b border-white/10 pb-4 mb-4">
+          <div className="container flex justify-between items-center text-[10px] uppercase tracking-[0.2em] font-black text-white/70">
+            <div className="flex items-center space-x-8">
+              <span className="flex items-center"><Clock size={12} className="mr-2 text-secondary" /> Available 24/7</span>
+              <span className="flex items-center"><MapPin size={12} className="mr-2 text-secondary" /> {ADDRESS}</span>
+            </div>
+            <div className="flex items-center space-x-8">
+              <a href={`mailto:${EMAIL}`} className="flex items-center hover:text-secondary shadow-primary transition-colors"><Mail size={12} className="mr-2 text-secondary" /> {EMAIL}</a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Nav */}
-      <div className="container flex justify-between items-center px-4">
-        <Link to="/" className="flex items-center group">
-          <div className="bg-primary p-2 rounded-lg mr-2 group-hover:bg-secondary transition-colors">
-            <Droplets size={24} className="text-white" />
-          </div>
-          <div>
-            <span className="text-xl font-display font-black text-primary leading-tight block">GAUFF COAST</span>
-            <span className="text-xs font-bold text-secondary tracking-[0.2em] block -mt-1 uppercase">Plumbing</span>
-          </div>
+      <div className="container flex justify-between items-center">
+        <Link to="/">
+          <Logo light={!isScrolled && location.pathname === '/'} />
         </Link>
 
         {/* Desktop Links */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-10">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `text-sm font-bold uppercase tracking-wider transition-colors hover:text-secondary ${isActive ? 'text-secondary border-b-2 border-secondary' : 'text-slate-600'}`
+                `text-xs font-black uppercase tracking-[0.2em] transition-all duration-300 hover:text-secondary relative group ${isActive ? 'text-secondary' : (isScrolled ? 'text-primary' : 'text-white')}`
               }
             >
               {link.name}
+              <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all duration-300 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''}`}></span>
             </NavLink>
           ))}
           <a
             href={`tel:${PHONE_NUMBER}`}
-            className="btn-accent py-2 px-5 flex items-center"
+            className={`${isScrolled ? 'btn-accent' : 'bg-white text-primary px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-secondary hover:text-white transition-all shadow-2xl'} flex items-center`}
           >
-            <Phone size={18} className="mr-2" />
+            <Phone size={16} className="mr-2" />
             {DISPLAY_PHONE}
           </a>
         </nav>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-primary p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <button className={`lg:hidden p-3 rounded-xl ${isScrolled ? 'text-primary bg-slate-50' : 'text-white bg-white/10'}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
@@ -90,29 +89,39 @@ export const Header = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t border-slate-100 overflow-hidden"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            className="fixed inset-0 z-[60] bg-primary lg:hidden"
           >
-            <div className="container py-6 px-4 flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className="text-lg font-bold text-slate-800 py-2 border-b border-slate-50"
-                  onClick={() => setIsMenuOpen(false)}
+            <div className="flex flex-col h-full">
+              <div className="p-6 flex justify-between items-center border-b border-white/10">
+                <Logo light />
+                <button className="text-white p-3 bg-white/10 rounded-xl" onClick={() => setIsMenuOpen(false)}>
+                  <X size={28} />
+                </button>
+              </div>
+              <div className="flex-grow flex flex-col justify-center items-center space-y-8 p-12">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className="text-3xl font-black text-white uppercase tracking-widest hover:text-secondary"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+              <div className="p-8 border-t border-white/10">
+                <a
+                  href={`tel:${PHONE_NUMBER}`}
+                  className="btn-accent w-full py-6 text-xl"
                 >
-                  {link.name}
-                </Link>
-              ))}
-              <a
-                href={`tel:${PHONE_NUMBER}`}
-                className="btn-accent w-full text-center flex justify-center items-center py-4"
-              >
-                <Phone size={20} className="mr-2" />
-                Call Now: {DISPLAY_PHONE}
-              </a>
+                  <Phone size={24} className="mr-3" />
+                  {DISPLAY_PHONE}
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
@@ -124,21 +133,13 @@ export const Header = () => {
 // --- Footer ---
 export const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-white pt-16 pb-8">
-      <div className="container grid md:grid-cols-2 lg:grid-cols-4 gap-12 px-4 mb-12">
+    <footer className="bg-primary text-white pt-32 pb-12 border-t border-white/5">
+      <div className="container grid md:grid-cols-2 lg:grid-cols-4 gap-20 px-4 mb-24">
         {/* Brand */}
-        <div className="space-y-6">
-          <Link to="/" className="flex items-center">
-            <div className="bg-white p-2 rounded-lg mr-2">
-              <Droplets size={24} className="text-primary" />
-            </div>
-            <div>
-              <span className="text-xl font-display font-black text-white leading-tight block">GAUFF COAST</span>
-              <span className="text-xs font-bold text-secondary tracking-[0.2em] block -mt-1 uppercase">Plumbing</span>
-            </div>
-          </Link>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            Fast, Reliable, and Affordable Plumbing Services in Hitchcock, TX. Available 24/7 for all your residential and commercial plumbing needs.
+        <div className="space-y-8">
+          <Logo light />
+          <p className="text-slate-400 text-sm leading-relaxed font-medium">
+            Professional 24/7 plumbing services locally owned and operated in Hitchcock, TX. We pride ourselves on honest pricing and quality craftsmanship.
           </p>
           <div className="flex space-x-4">
              {/* Social items would go here */}
@@ -147,29 +148,26 @@ export const Footer = () => {
 
         {/* Quick Links */}
         <div>
-          <h4 className="text-lg font-bold mb-6 flex items-center">
-            <span className="w-8 h-1 bg-secondary mr-3 rounded-full"></span>
-            Quick Links
+          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-secondary mb-10 flex items-center">
+            Navigation
           </h4>
-          <ul className="space-y-4 text-slate-400 text-sm">
-            <li><Link to="/about" className="hover:text-secondary flex items-center"><ChevronRight size={14} className="mr-2" /> About Us</Link></li>
-            <li><Link to="/services" className="hover:text-secondary flex items-center"><ChevronRight size={14} className="mr-2" /> Our Services</Link></li>
-            <li><Link to="/testimonials" className="hover:text-secondary flex items-center"><ChevronRight size={14} className="mr-2" /> Customer Reviews</Link></li>
-            <li><Link to="/contact" className="hover:text-secondary flex items-center"><ChevronRight size={14} className="mr-2" /> Contact Us</Link></li>
-            <li><Link to="/services/emergency-plumbing" className="hover:text-secondary flex items-center text-accent"><ChevronRight size={14} className="mr-2" /> Emergency Service</Link></li>
+          <ul className="space-y-5 text-slate-300 text-sm font-bold">
+            <li><Link to="/about" className="hover:text-secondary flex items-center transition-colors"><ChevronRight size={14} className="mr-3 text-secondary" /> About Our Team</Link></li>
+            <li><Link to="/services" className="hover:text-secondary flex items-center transition-colors"><ChevronRight size={14} className="mr-3 text-secondary" /> Our Plumbing Services</Link></li>
+            <li><Link to="/testimonials" className="hover:text-secondary flex items-center transition-colors"><ChevronRight size={14} className="mr-3 text-secondary" /> Customer Stories</Link></li>
+            <li><Link to="/contact" className="hover:text-secondary flex items-center transition-colors"><ChevronRight size={14} className="mr-3 text-secondary" /> Contact & Location</Link></li>
           </ul>
         </div>
 
         {/* Services Areas */}
         <div>
-          <h4 className="text-lg font-bold mb-6 flex items-center">
-            <span className="w-8 h-1 bg-secondary mr-3 rounded-full"></span>
+          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-secondary mb-10 flex items-center">
             Service Areas
           </h4>
-          <ul className="grid grid-cols-1 gap-4 text-slate-400 text-sm">
+          <ul className="grid grid-cols-1 gap-5 text-slate-300 text-sm font-bold">
             {SERVICE_AREAS.map(area => (
               <li key={area} className="flex items-center">
-                <MapPin size={14} className="mr-2 text-secondary" />
+                <MapPin size={14} className="mr-3 text-secondary" />
                 {area}
               </li>
             ))}
@@ -178,35 +176,34 @@ export const Footer = () => {
 
         {/* Contact Info */}
         <div>
-          <h4 className="text-lg font-bold mb-6 flex items-center">
-            <span className="w-8 h-1 bg-secondary mr-3 rounded-full"></span>
-            Contact Us
+          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-secondary mb-10 flex items-center">
+            Get In Touch
           </h4>
-          <ul className="space-y-4 text-slate-400 text-sm">
+          <ul className="space-y-6 text-slate-300 text-sm font-bold">
             <li className="flex items-start">
-              <MapPin size={18} className="mr-3 text-secondary flex-shrink-0" />
+              <MapPin size={18} className="mr-4 text-secondary flex-shrink-0" />
               <span>{ADDRESS}</span>
             </li>
             <li className="flex items-center">
-              <Phone size={18} className="mr-3 text-secondary flex-shrink-0" />
-              <a href={`tel:${PHONE_NUMBER}`} className="hover:text-white">{DISPLAY_PHONE}</a>
+              <Phone size={18} className="mr-4 text-secondary flex-shrink-0" />
+              <a href={`tel:${PHONE_NUMBER}`} className="hover:text-white transition-colors">{DISPLAY_PHONE}</a>
             </li>
             <li className="flex items-center">
-              <Mail size={18} className="mr-3 text-secondary flex-shrink-0" />
-              <a href={`mailto:${EMAIL}`} className="hover:text-white">{EMAIL}</a>
+              <Mail size={18} className="mr-4 text-secondary flex-shrink-0" />
+              <a href={`mailto:${EMAIL}`} className="hover:text-white transition-colors truncate block">{EMAIL}</a>
             </li>
-            <li className="flex items-center">
-              <Clock size={18} className="mr-3 text-secondary flex-shrink-0" />
-              <span>Open 24 Hours</span>
+            <li className="flex items-center italic text-secondary">
+              <Clock size={18} className="mr-4 flex-shrink-0" />
+              <span>Available 24 Hours / 7 Days</span>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="container px-4 border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 space-y-4 md:space-y-0 text-center md:text-left">
-        <p>&copy; {new Date().getFullYear()} {COMPANY_NAME}. All Rights Reserved.</p>
-        <p className="flex items-center justify-center">
-          Licensed & Insured Plumbing Contractor in Hitchcock, Texas
+      <div className="container border-t border-white/10 pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 space-y-6 md:space-y-0">
+        <p>&copy; {new Date().getFullYear()} {COMPANY_NAME}. Licensed Plumbing Services.</p>
+        <p className="hover:text-slate-300 transition-colors cursor-default">
+          Hitchcock • Galveston • Texas City • La Marque • Santa Fe
         </p>
       </div>
     </footer>

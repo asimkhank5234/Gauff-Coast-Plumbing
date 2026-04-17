@@ -141,6 +141,30 @@ export const SERVICE_AREAS = [
   "Santa Fe, TX"
 ];
 
+export const BEFORE_AFTER_GALLERY = [
+  {
+    id: "gallery-1",
+    title: "Main Line Replacement",
+    description: "Full iron-to-PVC replacement in Hitchcock.",
+    before: "https://picsum.photos/seed/plumbing-before-1/800/600",
+    after: "https://picsum.photos/seed/plumbing-after-1/800/600"
+  },
+  {
+    id: "gallery-2",
+    title: "Water Heater Installation",
+    description: "High-efficiency tankless conversion.",
+    before: "https://picsum.photos/seed/plumbing-before-2/800/600",
+    after: "https://picsum.photos/seed/plumbing-after-2/800/600"
+  },
+  {
+    id: "gallery-3",
+    title: "Bathroom Luxury Upgrade",
+    description: "New copper piping and fixture modernization.",
+    before: "https://picsum.photos/seed/plumbing-before-3/800/600",
+    after: "https://picsum.photos/seed/plumbing-after-3/800/600"
+  }
+];
+
 export const FAQS: FAQ[] = [
   {
     question: "How quickly can you arrive?",

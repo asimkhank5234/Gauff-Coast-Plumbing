@@ -1,131 +1,108 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PageLayout } from '../components/Navigation';
 import { SectionHeading, FeatureCheck } from '../components/UI';
-import { COMPANY_NAME, PHONE_NUMBER } from '../constants';
-import { Phone, Users, ShieldCheck, Clock, CheckCircle } from 'lucide-react';
+import { PHONE_NUMBER } from '../constants';
+import { Phone, Users, BadgeDollarSign, Wrench, HeartPulse } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const AboutPage = () => {
   return (
-    <PageLayout title="About Us">
-      {/* Hero Header */}
-      <section className="bg-slate-900 pt-24 pb-48 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/seed/about/1920/1080')] bg-cover bg-center"></div>
-        <div className="container px-4 text-center relative z-10">
-          <SectionHeading 
-            light
-            centered
-            title="Your Trusted Local Plumbing Experts" 
-            subtitle="Gauff Coast Plumbing has been serving the Hitchcock community with integrity, professionalism, and unmatched expertise for years."
-          />
+    <PageLayout>
+      {/* --- Hero Section --- */}
+      <section className="bg-primary pt-48 pb-32 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/seed/about-plumbing/1920/1080?grayscale')] bg-cover"></div>
+        <div className="container relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-3xl"
+          >
+            <h1 className="text-5xl md:text-7xl font-black mb-10 tracking-tighter">Your Neighborhood <br/><span className="text-secondary italic">Plumbing Experts</span></h1>
+            <p className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed">
+              For over a decade, Gauff Coast Plumbing has been the trusted name for quality repairs and installations in Hitchcock. We've built our reputation on a simple promise: exceptional service and honest pricing.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-24 bg-white px-4">
-        <div className="container -mt-40 relative z-20">
-          <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-16 border border-slate-100">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                   <h3 className="text-3xl font-black text-primary mb-6">Our Company Story</h3>
-                   <div className="space-y-6 text-slate-600 leading-relaxed text-lg">
-                      <p>
-                        Gauff Coast Plumbing was founded on a simple principle: provide the residents and business owners of Hitchcock and the surrounding areas with plumbing services they can actually rely on. We saw a need for a plumbing company that combines technical precision with old-fashioned customer service and honest, transparent pricing.
-                      </p>
-                      <p>
-                        Being a locally owned and operated business means we aren't just serving customers—we're serving our neighbors. This deep connection to the community drives us to maintain the highest standards of workmanship on every job, from a simple leaking faucet repair to a complex emergency sewer backup.
-                      </p>
-                   </div>
-                   
-                   <div className="mt-10 grid sm:grid-cols-2 gap-6">
-                      <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 italic font-medium">
-                         "We don't just fix pipes; we provide peace of mind for Hitchcock families."
-                      </div>
-                      <div className="flex flex-col justify-center">
-                         <div className="flex items-center space-x-2 text-primary font-black text-xl mb-1">
-                            <span className="text-secondary tracking-widest uppercase text-xs block mb-1">Quality Guaranteed</span>
-                         </div>
-                         <div className="flex space-x-1">
-                            {[...Array(5)].map((_, i) => <CheckCircle key={i} size={20} className="text-secondary" fill="currentColor" />)}
-                         </div>
-                      </div>
-                   </div>
-                </div>
-
-                <div className="relative">
-                   <div className="absolute -inset-4 bg-secondary/10 rounded-full blur-3xl"></div>
-                   <img 
-                      src="https://picsum.photos/seed/van/800/800" 
-                      alt="Gauff Coast Plumbing Van" 
-                      className="relative z-10 rounded-2xl shadow-xl w-full"
-                      referrerPolicy="no-referrer"
-                   />
-                   <div className="absolute -bottom-10 -right-10 hidden md:block z-20">
-                      <div className="bg-primary p-8 rounded-full shadow-2xl border-8 border-white">
-                         <Users size={64} className="text-secondary" />
-                      </div>
-                   </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-24 bg-surface px-4">
+      {/* --- Company Values --- */}
+      <section className="section-spacing bg-white">
         <div className="container">
           <SectionHeading 
-            centered
-            title="Our Commitment To You" 
-            subtitle="At Gauff Coast Plumbing, these values guide everything we do."
+            title="What Drives Us Forward" 
+            subtitle="Our core values are at the heart of everything we do. We're not just your plumbers; we're your neighbors."
           />
           <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center space-y-4">
-              <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto text-secondary text-3xl font-black">01</div>
-              <h4 className="text-2xl font-bold text-primary">Honest Pricing</h4>
-              <p className="text-slate-600">No hidden fees, no unnecessary upsells. We provide clear, upfront estimates before any work begins.</p>
-            </div>
-            <div className="text-center space-y-4">
-               <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto text-secondary text-3xl font-black">02</div>
-              <h4 className="text-2xl font-bold text-primary">Quality Workmanship</h4>
-              <p className="text-slate-600">Our plumbers are highly trained and experienced. We use high-quality materials to ensure long-lasting results.</p>
-            </div>
-            <div className="text-center space-y-4">
-               <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto text-secondary text-3xl font-black">03</div>
-              <h4 className="text-2xl font-bold text-primary">Customer Satisfaction</h4>
-              <p className="text-slate-600">Your satisfaction is our primary goal. We aren't happy with the job until you are.</p>
-            </div>
+            {[
+              { title: "Honest Pricing", text: "We believe in transparency. No hidden fees, no surprise surcharges—just fair quotes for outstanding work.", icon: BadgeDollarSign },
+              { title: "Quality Workmanship", text: "Our masters use the latest technology and techniques to ensure every repair is permanent and professional.", icon: Wrench },
+              { title: "Customer Satisfaction", text: "We're not finished until you're smiling. Our 100% satisfaction guarantee is unconditional.", icon: HeartPulse }
+            ].map((value) => (
+              <div key={value.title} className="bg-surface p-12 rounded-[3rem] card-shadow border border-slate-50 transition-all hover:translate-y-[-8px]">
+                <div className="bg-secondary p-4 rounded-2xl text-white inline-block mb-8 shadow-xl">
+                  <value.icon size={32} />
+                </div>
+                <h3 className="text-2xl font-black text-primary mb-4">{value.title}</h3>
+                <p className="text-slate-500 font-medium text-lg leading-relaxed">{value.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Meet Team / Support */}
-      <section className="py-24 bg-white px-4">
-         <div className="container flex flex-col items-center text-center">
+      {/* --- Team Support Section --- */}
+      <section className="section-spacing bg-surface border-y border-slate-100">
+        <div className="container grid lg:grid-cols-2 gap-24 items-center">
+          <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group">
+             <img 
+               src="https://picsum.photos/seed/expert-plumber/800/1000" 
+               alt="Our Expert Team" 
+               className="w-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+               referrerPolicy="no-referrer"
+             />
+             <div className="absolute inset-0 bg-primary/20 mix-blend-multiply transition-opacity group-hover:opacity-0"></div>
+          </div>
+          <div>
             <SectionHeading 
-               centered
-               title="Expert Plumbers Available 24/7" 
-               subtitle="Our team is equipped to handle any plumbing challenge, large or small, at any time of day or night."
+              title="Expert Plumbers Available 24/7" 
+              subtitle="When a pipe bursts or a drain clogs, you shouldn't have to wait for normal business hours."
             />
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl">
-               <FeatureCheck text="Licensed & Insured Technicians" />
-               <FeatureCheck text="Comprehensive Background Checks" />
-               <FeatureCheck text="Continuing Education & Training" />
-               <FeatureCheck text="State-of-the-Art Equipment" />
-               <FeatureCheck text="Friendly & Professional Conduct" />
-               <FeatureCheck text="Fast Emergency Support" />
+            <p className="text-xl text-slate-500 font-medium mb-12 leading-relaxed">
+              Our fleet is fully equipped with advanced diagnostic tools and parts to handle 95% of repairs on the spot. We've spent years honing our craft in Hitchcock to ensure your peace of mind.
+            </p>
+            <div className="space-y-6 mb-12">
+               <FeatureCheck text="Certified Master Plumbing Technicians" />
+               <FeatureCheck text="State-of-the-Art Leak Detection" />
+               <FeatureCheck text="Locally Recognized Community Leaders" />
+               <FeatureCheck text="Comprehensive Liability Insurance" />
             </div>
-            
-            <div className="mt-16 bg-primary text-white p-10 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden group">
-               <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-               <div className="relative z-10">
-                  <h3 className="text-2xl md:text-3xl font-black mb-6">Need Immediate Assistance?</h3>
-                  <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Our local plumbers are standing by for any emergency repair or maintenance service you might need.</p>
-                  <a href={`tel:${PHONE_NUMBER}`} className="btn-accent text-xl px-12 py-5 shadow-inner">
-                    <Phone size={24} className="mr-3" /> Call {PHONE_NUMBER}
-                  </a>
-               </div>
+            <a href={`tel:${PHONE_NUMBER}`} className="btn-primary px-12 py-6 text-xl">
+               Meet Our Team
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* --- CTA Section --- */}
+      <section className="section-spacing bg-white">
+        <div className="container bg-primary p-16 lg:p-32 rounded-[4rem] text-center text-white relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div className="relative z-10">
+            <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">Ready for better plumbing?</h2>
+            <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
+              Join thousands of Hitchcock families who trust Gauff Coast for their plumbing maintenance and repairs.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <a href={`tel:${PHONE_NUMBER}`} className="btn-accent px-12 py-5 text-xl">
+                Call {PHONE_NUMBER}
+              </a>
+              <Link to="/contact" className="btn-outline border-white text-white hover:bg-white hover:text-primary px-12 py-5 text-xl border-4">
+                Work With Us
+              </Link>
             </div>
-         </div>
+          </div>
+        </div>
       </section>
     </PageLayout>
   );
